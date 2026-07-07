@@ -1,0 +1,3 @@
+# inserts Files
+
+path to jsonl files: https://oracle-my.sharepoint.com/shared?id=%2Fpersonal%2Fvlad%5Fhaprian%5Foracle%5Fcom%2FDocuments%2FAI%2Din%2DDB%2FNL2SQLAgent%2FAV%2DSQL%2Dartificial%2Ddata%2Fbenchmark%2Fdata%2Fdml%2Fdml%5Fjsonl&listurl=%2Fpersonal%2Fvlad%5Fhaprian%5Foracle%5Fcom%2FDocuments&viewid=d3e39a6d%2Dbade%2D413f%2Da2ac%2D71426ea43f87&FolderCTID=0x01200033F914A92138524A9E56EC3A7C99384A

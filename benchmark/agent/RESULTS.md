@@ -1,0 +1,82 @@
+# Analytic Views Benchmark Results
+
+## About
+
+These results compare agent configurations on the [100-question Analytic Views
+benchmark dataset](../data/questions/tasks_unit_test.jsonl). We have confirmed that the accuracy
+is very similar with the complete dataset. The benchmark measures whether 
+each agent can produce executable Oracle Analytic View SQL and match the expected answer rows.
+
+The `AV skill and tools` setup is the exported [agent spec version](analytic_view_agent_spec.json). 
+It includes Analytic View-specific instructions plus the AV tools exposed by the packaged agent.
+
+The `vanilla` setup is a [very basic NL2SQL agent](vanilla_agent_spec.json). It has only the
+`get_schema_overview`, `get_table_schemas`, and `run_sql` tools:
+no AV skill and no AV-specialized tools.
+
+Model names ending in `-medium` or `-low` refer to the reasoning level used for
+that run. For example, `ocigenai.gpt-5.5-medium` is the model configured with
+medium reasoning, while `ocigenai.gpt-5.5-low` is the same model family
+configured with low reasoning. Compare rows by the full model name, because the
+reasoning level is part of the model configuration and affects both quality and
+runtime behavior.
+
+## Evaluator Methodology
+
+All rows were evaluated with the same standalone evaluator model:
+`ocigenai.gpt-5.5-low`.
+
+For each question, the benchmark executes both the golden SQL and the generated
+SQL, then passes the generated answer, extracted generated SQL, generated result
+set, golden SQL, and golden result set to the evaluator. The evaluator is asked
+to judge whether the generated SQL answers the same question at the same grain,
+using the executed result sets as primary evidence. Answers that do not use analytic views are marked incorrect. The `# Correct` column is generated from the evaluator's `Correct: true|false`
+judgment.
+
+## Summary
+
+`# Correct` is the number of correctly answered questions out of 100. All other result columns are averages per question. 
+The exported Agent Spec agents were kept as simple as possible, so their token counts and tool-call totals may differ from the results reported below.
+These results were collected with a benchmark runtime (a) included an agent thought tool counted in the tool calls and (b) exposed additional run sql parameters, 
+such as a query explanation parameter. These differences affect the reported token usage and tool-call totals.
+
+| Model                        | Setup                         | # Correct | Exec Time (s) | Input Tokens | Output Tokens | Tool Calls | Run SQL tool calls | SQL Errors | SQL Error % |
+| ---------------------------- | ----------------------------- | --------: | ------------: | -----------: | ------------: | ---------: | --------: | ---------: | ----------: |
+| `ocigenai.gpt-5.5-medium`    | vanilla                       |      68.0 |       150.740 |       112326 |          4855 |       27.3 |      19.6 |       5.15 |        25.7 |
+| `ocigenai.gpt-5.5-medium`    | AV skill and tools            |      89.0 |        78.251 |        34173 |          2188 |        6.7 |       2.1 |       0.00 |         0.0 |
+| `ocigenai.gpt-5.5-low`       | vanilla                       |      48.0 |       139.019 |        68657 |          2946 |       19.4 |      14.8 |       4.52 |        29.3 |
+| `ocigenai.gpt-5.5-low`       | AV skill and tools            |      84.0 |        64.646 |        24661 |          1459 |        5.4 |       1.3 |       0.02 |         0.8 |
+| `ocigenai.gpt-5.4-mini-medium` | vanilla                     |       4.0 |       510.565 |        44961 |          4129 |       12.3 |       8.8 |       1.87 |        22.4 |
+| `ocigenai.gpt-5.4-mini-medium` | AV skill and tools          |      64.0 |        56.051 |        30474 |          3257 |        6.7 |       2.4 |       0.46 |        16.6 |
+| `ocigenai.gpt-5.4-nano-medium` | vanilla                     |       1.0 |       555.584 |       102261 |          5117 |       22.6 |      10.4 |       2.27 |        18.6 |
+| `ocigenai.gpt-5.4-nano-medium` | AV skill and tools          |      41.0 |       114.964 |        99991 |          6015 |       15.6 |       4.2 |       1.29 |        28.0 |
+| `ocigenai.gpt-oss-120b`      | vanilla                       |       0.0 |       233.253 |        41120 |          1029 |       16.2 |       5.0 |       0.68 |        10.8 |
+| `ocigenai.gpt-oss-120b`      | AV skill and tools            |      14.0 |        47.626 |        40929 |          1009 |        4.6 |       2.5 |       0.50 |         8.2 |
+| `ocigenai.gemini-2.5-pro`    | vanilla                       |       1.0 |        87.648 |        11660 |           885 |        4.8 |       2.2 |       1.25 |        45.0 |
+| `ocigenai.gemini-2.5-pro`    | AV skill and tools            |      46.0 |        48.883 |        19820 |          1026 |        3.4 |       1.2 |       0.47 |        25.4 |
+| `ocigenai.command-a-03-2025` | vanilla                       |       0.0 |       125.033 |        25612 |          1244 |        5.9 |       4.8 |       0.42 |        11.6 |
+| `ocigenai.command-a-03-2025` | AV skill and tools            |       2.0 |       133.730 |        25723 |          1117 |        4.5 |       3.3 |       0.22 |         5.5 |
+
+## Vanilla
+
+| Model                        | # Correct | Exec Time (s) | Input Tokens | Output Tokens | Tool Calls | Run SQL tool calls | SQL Errors | SQL Error % |
+| ---------------------------- | --------: | ------------: | -----------: | ------------: | ---------: | --------: | ---------: | ----------: |
+| `ocigenai.gpt-5.5-medium`    |      68.0 |       150.740 |       112326 |          4855 |       27.3 |      19.6 |       5.15 |        25.7 |
+| `ocigenai.gpt-5.5-low`       |      48.0 |       139.019 |        68657 |          2946 |       19.4 |      14.8 |       4.52 |        29.3 |
+| `ocigenai.gpt-5.4-mini-medium` |     4.0 |       510.565 |        44961 |          4129 |       12.3 |       8.8 |       1.87 |        22.4 |
+| `ocigenai.gpt-5.4-nano-medium` |     1.0 |       555.584 |       102261 |          5117 |       22.6 |      10.4 |       2.27 |        18.6 |
+| `ocigenai.gpt-oss-120b`      |       0.0 |       233.253 |        41120 |          1029 |       16.2 |       5.0 |       0.68 |        10.8 |
+| `ocigenai.gemini-2.5-pro`    |       1.0 |        87.648 |        11660 |           885 |        4.8 |       2.2 |       1.25 |        45.0 |
+| `ocigenai.command-a-03-2025` |       0.0 |       125.033 |        25612 |          1244 |        5.9 |       4.8 |       0.42 |        11.6 |
+
+## AV skill and tools
+
+| Model                        | # Correct | Exec Time (s) | Input Tokens | Output Tokens | Tool Calls | Run SQL tool calls | SQL Errors | SQL Error % |
+| ---------------------------- | --------: | ------------: | -----------: | ------------: | ---------: | --------: | ---------: | ----------: |
+| `ocigenai.gpt-5.5-medium`    |      89.0 |        78.251 |        34173 |          2188 |        6.7 |       2.1 |       0.00 |         0.0 |
+| `ocigenai.gpt-5.5-low`       |      84.0 |        64.646 |        24661 |          1459 |        5.4 |       1.3 |       0.02 |         0.8 |
+| `ocigenai.gpt-5.4-mini-medium` |    64.0 |        56.051 |        30474 |          3257 |        6.7 |       2.4 |       0.46 |        16.6 |
+| `ocigenai.gpt-5.4-nano-medium` |    41.0 |       114.964 |        99991 |          6015 |       15.6 |       4.2 |       1.29 |        28.0 |
+| `ocigenai.gpt-oss-120b`      |      14.0 |        47.626 |        40929 |          1009 |        4.6 |       2.5 |       0.50 |         8.2 |
+| `ocigenai.gemini-2.5-pro`    |      46.0 |        48.883 |        19820 |          1026 |        3.4 |       1.2 |       0.47 |        25.4 |
+| `ocigenai.command-a-03-2025` |       2.0 |       133.730 |        25723 |          1117 |        4.5 |       3.3 |       0.22 |         5.5 |

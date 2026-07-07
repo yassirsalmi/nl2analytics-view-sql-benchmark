@@ -1,0 +1,110 @@
+{
+    "component_type": "ExtendedAgent",
+    "id": "0cdc1f52-0d02-4dd9-bd6c-232587319adb",
+    "name": "agent_a7a81fdd__auto",
+    "description": "",
+    "metadata": {
+        "__metadata_info__": {}
+    },
+    "inputs": [],
+    "outputs": [],
+    "llm_config": {
+        "component_type": "VllmConfig",
+        "id": "77a3cf88-1b3f-4ab1-babe-488ae27436fb",
+        "name": "llm_3213ea2f__auto",
+        "description": null,
+        "metadata": {
+            "__metadata_info__": {}
+        },
+        "model_id": "MODEL_ID",
+        "url": "MODEL_ENDPOINT",
+        "default_generation_parameters": null
+    },
+    "system_prompt": "You are an NL2SQL agent for the Oracle Database (targeting Oracle SQL). Prefer short plans and minimal speculation.\n\nRules:\n- Identify non-trivial semantic ambiguities that affect the answer (e.g., business definitions, entity identity rules, time windows) and resolve them with minimal overhead.\n- Check via SQL: Run probes first and then proceed using the strongest supported interpretation. If verification is not practical, continue with a clearly scoped best interpretation.\n- Handle ambiguities in this order: (1) Immediately state a thought for non-probeable interpretation choices (those you cannot reasonably verify via a quick SQL check); (2) For probeable ambiguities, first run minimal SQL probes, then apply an informed interpretation with an explicit confidence level.\n- Keep outputs short and proceed autonomously.\n- Don't overthink things. You can solve complex problems focusing on one step at time, where each step does not need to solve the entire problem.\n\n\n## Schema Tools\n- `get_schema_overview` lists available tables/views.\n- `get_table_schemas` gets detailed column info per table.\n- `run_sql` executes a read-only Oracle SQL query and returns a compact CSV preview.\n",
+    "tools": [
+        {
+            "component_type": "ServerTool",
+            "id": "d7d37d83-0df0-475a-9320-180c0e0d5ac6",
+            "name": "get_schema_overview",
+            "description": "List available tables/views in the target schema.\n\nImplement this by inspecting the configured Oracle schema and returning\na concise overview of available objects. This is the first discovery\ntool to call when deciding which objects may answer a user question.",
+            "metadata": {
+                "__metadata_info__": {}
+            },
+            "inputs": [],
+            "outputs": [
+                {
+                    "type": "string",
+                    "title": "tool_output"
+                }
+            ]
+        },
+        {
+            "component_type": "ServerTool",
+            "id": "091461fe-c481-4a28-85f2-2ef278bcfebc",
+            "name": "run_sql",
+            "description": "Execute a read-only Oracle SQL query and return a compact CSV preview.",
+            "metadata": {
+                "__metadata_info__": {}
+            },
+            "inputs": [
+                {
+                    "type": "string",
+                    "title": "sql_text"
+                },
+                {
+                    "type": "integer",
+                    "title": "max_rows_fetch",
+                    "default": 50
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "string",
+                    "title": "tool_output"
+                }
+            ]
+        },
+        {
+            "component_type": "ServerTool",
+            "id": "8d39272e-20d1-4601-a0df-0e86962fab19",
+            "name": "get_table_schemas",
+            "description": "Fetch table schemas for a list of table names.",
+            "metadata": {
+                "__metadata_info__": {}
+            },
+            "inputs": [
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "tables"
+                }
+            ],
+            "outputs": [
+                {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    },
+                    "title": "tool_output"
+                }
+            ]
+        }
+    ],
+    "toolboxes": [],
+    "human_in_the_loop": true,
+    "transforms": [],
+    "context_providers": null,
+    "can_finish_conversation": true,
+    "raise_exceptions": false,
+    "max_iterations": 40,
+    "initial_message": "Hi! Ask me an Oracle Database question, and I'll use the schema tools to produce validated SQL.",
+    "caller_input_mode": "always",
+    "agents": [],
+    "flows": [],
+    "agent_template": null,
+    "component_plugin_name": "AgentPlugin",
+    "component_plugin_version": "26.1.2",
+    "agentspec_version": "25.4.1"
+}
