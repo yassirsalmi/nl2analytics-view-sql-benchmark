@@ -31,6 +31,25 @@ The table descriptions below are inferred from the schema definitions in `../ddl
 - The loaded rows become the benchmark base data consumed by analytic views and the downstream NL2SQL task files in `../questions/`.
 - `JSONL inserts` is the effective load size from these files. For some large sources, it is intentionally lower than `CSV rows` (for example, capped at `100,000`).
 
+## Split JSONL Files
+
+Two DML JSONL payloads are stored as multiple Git LFS objects because the original single-line JSON files exceed GitHub LFS's per-object size limit:
+
+- `dml_jsonl/dml_inserts_AV_AI.ONTIME_PERFORMANCE.jsonl.part01`
+- `dml_jsonl/dml_inserts_AV_AI.ONTIME_PERFORMANCE.jsonl.part02`
+- `dml_jsonl/dml_inserts_AV_AI.ONTIME_PERFORMANCE.jsonl.part03`
+- `dml_jsonl/dml_inserts_AV_AI.USDA_COUNTY_POPULATION.jsonl.part01`
+- `dml_jsonl/dml_inserts_AV_AI.USDA_COUNTY_POPULATION.jsonl.part02`
+
+Before loading those two tables, concatenate the parts in numeric order to recreate the original JSONL file name:
+
+```sh
+cat dml_jsonl/dml_inserts_AV_AI.ONTIME_PERFORMANCE.jsonl.part* > dml_jsonl/dml_inserts_AV_AI.ONTIME_PERFORMANCE.jsonl
+cat dml_jsonl/dml_inserts_AV_AI.USDA_COUNTY_POPULATION.jsonl.part* > dml_jsonl/dml_inserts_AV_AI.USDA_COUNTY_POPULATION.jsonl
+```
+
+After reconstruction, use the recreated `.jsonl` files the same way as the other DML files: parse the single JSON object and execute each SQL statement in its `inserts` array.
+
 ## Data Description
 
 The descriptions below are inferred from the schema definitions in `../ddl/ddl.jsonl`.
