@@ -56,6 +56,16 @@ The `benchmark/data/dml/` folder contains the generated insert payloads derived 
 The `benchmark/data/questions/` folder contains per-analytic-view NL2SQL task files in `.jsonl` format.
 - The task-files are documented in [benchmark/data/questions/README.md](benchmark/data/questions/README.md).
 
+# Contributors
+
+- [Vasileios Trigonakis](https://github.com/trigonak)
+- [Yassir Salmi](https://github.com/yassirsalmi)
+- [Vlad Haprian](https://github.com/VladHaprian)
+- Anne Murphy
+- [Onur Kocberber](https://github.com/onurkocberber)
+- [Sungpack Hong](https://github.com/hongsup2)
+- Ekrem Soylemez
+
 # Contributing
 
 This project is not accepting external contributions at this time.
