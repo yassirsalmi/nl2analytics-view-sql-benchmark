@@ -1,5 +1,7 @@
 # Golden SQL Row Counts
 
+> These golden SQL row counts were generated using the [test subset DML dataset](../dml/test_subset/README.md), not the full dataset.
+
 ## tasks_BKS_BROOKLYN_SALES_AV.jsonl
 
 Total golden SQL statements: 79
