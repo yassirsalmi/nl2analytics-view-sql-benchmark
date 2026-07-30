@@ -39,7 +39,7 @@ Each JSON object currently contains these keys:
 
 ## Current Files
 
-The current selected task set contains 1,409 records across 12 files.
+The current selected task set contains 1,400 records across 12 files.
 
 `tasks_unit_test.jsonl` is a 100-question unit-test task file created for faster benchmark checks. It is sampled from the same selected tasks as the complete per-analytic-view dataset, so its percent accuracy results are expected to be similar to runs over the full task set.
 
@@ -47,16 +47,16 @@ The current selected task set contains 1,409 records across 12 files.
 | --- | --- | ---: |
 | `BKS_BROOKLYN_SALES_AV` | `tasks_BKS_BROOKLYN_SALES_AV.jsonl` | 79 |
 | `CAES_CALF_EMPLOYMENT_SURVEY_AV` | `tasks_CAES_CALF_EMPLOYMENT_SURVEY_AV.jsonl` | 76 |
-| `CTF_CALF_VEHICLE_FUEL_TYPES_AV` | `tasks_CTF_CALF_VEHICLE_FUEL_TYPES_AV.jsonl` | 47 |
+| `CTF_CALF_VEHICLE_FUEL_TYPES_AV` | `tasks_CTF_CALF_VEHICLE_FUEL_TYPES_AV.jsonl` | 46 |
 | `IT_ITALY_WEEKLY_FUEL_PRICES_AV` | `tasks_IT_ITALY_WEEKLY_FUEL_PRICES_AV.jsonl` | 165 |
-| `MA_MASS_WELL_DRILLING_AV` | `tasks_MA_MASS_WELL_DRILLING_AV.jsonl` | 150 |
-| `NYC_PAY_NYC_PAYROLL_AV` | `tasks_NYC_PAY_NYC_PAYROLL_AV.jsonl` | 95 |
-| `NYC_VFH_NYC_FOR_HIRE_VEHICLES_AV` | `tasks_NYC_VFH_NYC_FOR_HIRE_VEHICLES_AV.jsonl` | 105 |
+| `MA_MASS_WELL_DRILLING_AV` | `tasks_MA_MASS_WELL_DRILLING_AV.jsonl` | 149 |
+| `NYC_PAY_NYC_PAYROLL_AV` | `tasks_NYC_PAY_NYC_PAYROLL_AV.jsonl` | 91 |
+| `NYC_VFH_NYC_FOR_HIRE_VEHICLES_AV` | `tasks_NYC_VFH_NYC_FOR_HIRE_VEHICLES_AV.jsonl` | 103 |
 | `NYPD_SHOOT_SHOOTING_INCIDENTS_2024_AV` | `tasks_NYPD_SHOOT_SHOOTING_INCIDENTS_2024_AV.jsonl` | 123 |
 | `NYS_SPENDING_AV` | `tasks_NYS_SPENDING_AV.jsonl` | 158 |
 | `OTP_ONTIME_PERFORMANCE_AV` | `tasks_OTP_ONTIME_PERFORMANCE_AV.jsonl` | 146 |
 | `SAHIE_SMALL_AREA_HEALTH_INSURANCE_ESTIMATES_AV` | `tasks_SAHIE_SMALL_AREA_HEALTH_INSURANCE_ESTIMATES_AV.jsonl` | 173 |
-| `UDSA_COUNTY_POPULATION_AV` | `tasks_UDSA_COUNTY_POPULATION_AV.jsonl` | 92 |
+| `UDSA_COUNTY_POPULATION_AV` | `tasks_UDSA_COUNTY_POPULATION_AV.jsonl` | 91 |
 
 ## Field Notes
 
