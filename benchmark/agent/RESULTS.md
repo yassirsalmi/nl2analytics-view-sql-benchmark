@@ -42,6 +42,10 @@ such as a query explanation parameter. These differences affect the reported tok
 
 | Model                        | Setup                         | # Correct | Exec Time (s) | Input Tokens | Output Tokens | Tool Calls | Run SQL tool calls | SQL Errors | SQL Error % |
 | ---------------------------- | ----------------------------- | --------: | ------------: | -----------: | ------------: | ---------: | --------: | ---------: | ----------: |
+| `ocigenai.gpt-5.6-sol-medium` | vanilla                      |      53.0 |        52.899 |        13771 |          2496 |        7.5 |       5.2 |       0.09 |         0.9 |
+| `ocigenai.gpt-5.6-sol-medium` | AV skill and tools           |      85.0 |        46.943 |        30322 |          2126 |        6.3 |       3.0 |       0.03 |         0.6 |
+| `ocigenai.gpt-5.6-sol-low`    | vanilla                      |      44.0 |        40.286 |        11109 |          1939 |        6.2 |       4.0 |       0.02 |         0.2 |
+| `ocigenai.gpt-5.6-sol-low`    | AV skill and tools           |      88.0 |        41.722 |        29050 |          1742 |        6.1 |       2.8 |       0.06 |         1.9 |
 | `ocigenai.gpt-5.5-medium`    | vanilla                       |      68.0 |       150.740 |       112326 |          4855 |       27.3 |      19.6 |       5.15 |        25.7 |
 | `ocigenai.gpt-5.5-medium`    | AV skill and tools            |      89.0 |        78.251 |        34173 |          2188 |        6.7 |       2.1 |       0.00 |         0.0 |
 | `ocigenai.gpt-5.5-low`       | vanilla                       |      48.0 |       139.019 |        68657 |          2946 |       19.4 |      14.8 |       4.52 |        29.3 |
@@ -61,6 +65,8 @@ such as a query explanation parameter. These differences affect the reported tok
 
 | Model                        | # Correct | Exec Time (s) | Input Tokens | Output Tokens | Tool Calls | Run SQL tool calls | SQL Errors | SQL Error % |
 | ---------------------------- | --------: | ------------: | -----------: | ------------: | ---------: | --------: | ---------: | ----------: |
+| `ocigenai.gpt-5.6-sol-medium` |     53.0 |        52.899 |        13771 |          2496 |        7.5 |       5.2 |       0.09 |         0.9 |
+| `ocigenai.gpt-5.6-sol-low`    |     44.0 |        40.286 |        11109 |          1939 |        6.2 |       4.0 |       0.02 |         0.2 |
 | `ocigenai.gpt-5.5-medium`    |      68.0 |       150.740 |       112326 |          4855 |       27.3 |      19.6 |       5.15 |        25.7 |
 | `ocigenai.gpt-5.5-low`       |      48.0 |       139.019 |        68657 |          2946 |       19.4 |      14.8 |       4.52 |        29.3 |
 | `ocigenai.gpt-5.4-mini-medium` |     4.0 |       510.565 |        44961 |          4129 |       12.3 |       8.8 |       1.87 |        22.4 |
@@ -73,6 +79,8 @@ such as a query explanation parameter. These differences affect the reported tok
 
 | Model                        | # Correct | Exec Time (s) | Input Tokens | Output Tokens | Tool Calls | Run SQL tool calls | SQL Errors | SQL Error % |
 | ---------------------------- | --------: | ------------: | -----------: | ------------: | ---------: | --------: | ---------: | ----------: |
+| `ocigenai.gpt-5.6-sol-medium` |     85.0 |        46.943 |        30322 |          2126 |        6.3 |       3.0 |       0.03 |         0.6 |
+| `ocigenai.gpt-5.6-sol-low`    |     88.0 |        41.722 |        29050 |          1742 |        6.1 |       2.8 |       0.06 |         1.9 |
 | `ocigenai.gpt-5.5-medium`    |      89.0 |        78.251 |        34173 |          2188 |        6.7 |       2.1 |       0.00 |         0.0 |
 | `ocigenai.gpt-5.5-low`       |      84.0 |        64.646 |        24661 |          1459 |        5.4 |       1.3 |       0.02 |         0.8 |
 | `ocigenai.gpt-5.4-mini-medium` |    64.0 |        56.051 |        30474 |          3257 |        6.7 |       2.4 |       0.46 |        16.6 |
